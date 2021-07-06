@@ -1,0 +1,57 @@
+1041. Robot Bounded In Circle
+-----------------------------
+On an infinite plane, a robot initially stands at (0, 0) and faces north. The robot can receive one of three instructions:
+
+"G": go straight 1 unit;
+"L": turn 90 degrees to the left;
+"R": turn 90 degrees to the right.
+The robot performs the instructions given in order, and repeats them forever.
+
+Return true if and only if there exists a circle in the plane such that the robot never leaves the circle.
+
+Solution:
+
+class Solution {
+    public boolean isRobotBounded(String instructions) {
+        char dir = 'N';
+        int x = 0;
+        int y = 0;
+        
+        for(int i=0; i<instructions.length(); i++){
+            if(instructions.charAt(i) == 'G'){
+                if(dir == 'N'){
+                    y++;
+                }else if(dir == 'W'){
+                    x--;
+                }else if(dir == 'S'){
+                    y--;
+                }else if(dir == 'E'){
+                    x++;
+                }
+            }else if(instructions.charAt(i) == 'L'){
+                if(dir == 'N'){
+                    dir = 'W';
+                }else if(dir == 'W'){
+                    dir = 'S';
+                }else if(dir == 'S'){
+                    dir = 'E';
+                }else if(dir == 'E'){
+                    dir = 'N';
+                }
+            }else if(instructions.charAt(i) == 'R'){
+                if(dir == 'N'){
+                    dir = 'E';
+                }else if(dir == 'E'){
+                    dir = 'S';
+                }else if(dir == 'S'){
+                    dir = 'W';
+                }else if(dir == 'W'){
+                    dir = 'N';
+                }
+            }
+            
+        }
+        return ((x == 0 && y == 0) || dir != 'N');
+    }
+}
+
