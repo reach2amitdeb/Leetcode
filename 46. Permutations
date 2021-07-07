@@ -1,0 +1,34 @@
+46. Permutations
+----------------
+Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
+
+Solution:
+
+class Solution {
+    List<List<Integer>> result = new LinkedList();
+    
+    public List<List<Integer>> permute(int[] nums) {
+        List<Integer> decisionTree = new LinkedList();
+        for(int num : nums){
+            decisionTree.add(num);
+        }
+        permuteHelper(new LinkedList(), decisionTree);
+        return result;
+    }
+    
+    public void permuteHelper(List<Integer> permutation, List<Integer> decisionTree){
+        if(decisionTree.size() == 0){
+            result.add(permutation);
+            return;
+        }
+        
+        for(Integer dt : decisionTree){
+            List<Integer> tempPermutation = new LinkedList(permutation);
+            List<Integer> tempDecisionTree = new LinkedList(decisionTree);
+            tempPermutation.add(dt);
+            tempDecisionTree.remove(dt);
+            permuteHelper(tempPermutation, tempDecisionTree);
+        }
+        
+    }
+}
