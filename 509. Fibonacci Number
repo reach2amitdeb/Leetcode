@@ -9,9 +9,24 @@ Solution:
 
 class Solution {
     public int fib(int n) {
-        if(n <= 1){
-            return n;
-        }
-        return fib(n-1) + fib(n-2);
+//Here complexity is O(2^n): Not a good solution
+//        if(n <= 1){
+//            return n;
+//        }else{
+//            return fib(n-1) + fib(n-2);
+//        }
+//Here complexity is O(n): Better than previous solution
+         int a = 0; 
+         int b = 1;
+         int c = 0;
+         int count = 0;
+         while(count < n){
+            c = a + b;
+            a = b;
+            b = c;
+            count++;
+         }
+         return a;
+
     }
 }
