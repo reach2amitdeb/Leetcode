@@ -1,0 +1,46 @@
+1429. First Unique Number
+-------------------------
+You have a queue of integers, you need to retrieve the first unique integer in the queue.
+
+Implement the FirstUnique class:
+
+FirstUnique(int[] nums) Initializes the object with the numbers in the queue.
+int showFirstUnique() returns the value of the first unique integer of the queue, and returns -1 if there is no such integer.
+void add(int value) insert value to the queue.
+
+Solution:
+
+class FirstUnique {
+    
+    Set<Integer> isUnique = new HashSet<>();
+    Set<Integer> q = new LinkedHashSet<>();
+    
+    public FirstUnique(int[] nums) {
+        for(int n : nums){
+            this.add(n);
+        }
+    }
+    
+    public int showFirstUnique() {
+        if(!q.isEmpty()) {
+            return q.iterator().next();
+        }
+        return -1;
+    }
+    
+    public void add(int value) {
+        if(!isUnique.contains(value)){
+            isUnique.add(value);
+            q.add(value);
+        }else{
+            q.remove(value);
+        }
+    }
+}
+
+/**
+ * Your FirstUnique object will be instantiated and called as such:
+ * FirstUnique obj = new FirstUnique(nums);
+ * int param_1 = obj.showFirstUnique();
+ * obj.add(value);
+ */
