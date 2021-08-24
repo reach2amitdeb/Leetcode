@@ -1,0 +1,45 @@
+1509. Minimum Difference Between Largest and Smallest Value in Three Moves
+--------------------------------------------------------------------------
+Given an array nums, you are allowed to choose one element of nums and change it by any value in one move.
+
+Return the minimum difference between the largest and smallest value of nums after perfoming at most 3 moves.
+
+Solution 1:
+
+class Solution {
+    public int minDifference(int[] nums) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        if(n <= 3) return 0;
+        int ans = nums[n-1]-nums[0];
+        for(int i = 0, j = n-4; j < n; i++, j++) {
+            ans = Math.min(ans, nums[j]-nums[i]);
+        }
+        return ans;
+    }
+}
+
+Solution 2:
+
+class Solution {
+    public int minDifference(int[] nums) {
+        if(nums.length <= 4) return 0;
+            PriorityQueue<Integer> maxQueue = new PriorityQueue<>();
+            PriorityQueue<Integer> minQueue = new PriorityQueue<>(Collections.reverseOrder());
+        for(int n : nums) {
+            maxQueue.add(n);
+            if(maxQueue.size() > 4) maxQueue.poll();
+            minQueue.add(n);
+            if(minQueue.size() > 4) minQueue.poll();
+        }
+        List<Integer> maxList = new ArrayList<>();
+        while(maxQueue.size() > 0) maxList.add(maxQueue.poll());
+        List<Integer> minList = new ArrayList<>();
+        while(minQueue.size() > 0) minList.add(minQueue.poll());
+        int ans = Integer.MAX_VALUE;
+        for(int i = 0; i <= 3; i++) {
+            ans = Math.min(ans, maxList.get(i) - minList.get(3-i));
+        }
+        return ans;
+    }
+}
